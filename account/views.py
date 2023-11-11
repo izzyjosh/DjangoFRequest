@@ -1,0 +1,33 @@
+from django.shortcuts import render,redirect
+from .forms import UserRegistrationForm
+from django.contrib.auth.models import auth
+from django.contrib import messages
+
+def signin(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = auth.authenticate(
+                username=username,
+                password=password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect("account:signup")
+        else:
+            messages.error(request,"incorrect username or password")
+            return redirect("account:signin")
+
+    return render(request,"signin.html")
+
+
+def signup(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("account:signin")
+    else:
+        form = UserRegistrationForm()
+
+    return render(request,"signup.html",{"form":form})
