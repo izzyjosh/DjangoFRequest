@@ -8,14 +8,18 @@ User=get_user_model()
 @login_required
 def home(request):
     suggestions = User.objects.all()
-    friend_requests = Frequest.objects.all(receiver=request.user)
 
     context = {
             "suggestions":suggestions,
-            "friend_requests":friend_requests,
             }
 
     return render(request,"home.html",context)
+
+
+def allrequest(request):
+    friendrequests = Frequest.objects.filter(receiver=request.user)
+    return render(request,"accept.html",{"friendrequests":friendrequests})
+
 
 @login_required
 def frequest(request,user_id):
@@ -27,7 +31,7 @@ def frequest(request,user_id):
     check = Frequest.objects.filter(
             sender=sender,
             receiver=receiver)
-    if not check.exists() and receiver == sender:
+    if not check.exists() and receiver != sender:
         Frequest.objects.create(sender=sender,receiver=receiver)
 
         return redirect("main:home")
