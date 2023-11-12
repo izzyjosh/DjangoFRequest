@@ -13,7 +13,7 @@ def signin(request):
                 password=password)
         if user is not None:
             auth.login(request,user)
-            return redirect("account:signup")
+            return redirect("main:home")
         else:
             messages.error(request,"incorrect username or password")
             return redirect("account:signin")
@@ -31,3 +31,7 @@ def signup(request):
         form = UserRegistrationForm()
 
     return render(request,"signup.html",{"form":form})
+
+def logout(request):
+    auth.logout(request)
+    return redirect("account:signin")
