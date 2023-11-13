@@ -11,6 +11,7 @@ class MyUser(AbstractUser):
     username = models.CharField(max_length=50,unique=True)
     email = models.EmailField(unique=True)
     contact = models.IntegerField(blank=True,null=True)
+    friends = models.ManyToManyField('self',symmetrical=False)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ["email"]
