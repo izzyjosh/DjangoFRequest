@@ -76,11 +76,18 @@
     <hr>
     <main>
 	    {% for suggestion in suggestions%}
-        <div class="suggestion">
+	    {% if suggestion not in friends%}
+        <div class="suggestion" id="added">
 		<h4>{{suggestion.username}}</h4>
-		<a href="{% url 'main:request' suggestion.pk%}"><button>add friend</button></a>
+		<a href="{% url 'main:request' suggestion.pk%}"><button onclick="remove()" >add friend</button></a>
         </div>
+	{%endif%}
 	{% endfor %}
     </main>
+    <script>
+	    function remove() {
+		    document.getElementById("added").remove()
+	    }
+    </script>
 </body>
 </html>
