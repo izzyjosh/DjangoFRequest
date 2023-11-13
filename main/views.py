@@ -8,9 +8,11 @@ User=get_user_model()
 @login_required
 def home(request):
     suggestions = User.objects.all()
+    friends = User.objects.get(username=request.user.username).friends.all()
 
     context = {
             "suggestions":suggestions,
+            "friends":friends,
             }
 
     return render(request,"home.html",context)
@@ -38,13 +40,21 @@ def frequest(request,user_id):
 
 @login_required
 def acceptrequest(request,request_id):
-    request = get_object_or_404(
+    receiver = request.user
+    frequest = get_object_or_404(
             Frequest,
             pk=request_id,
-            receiver=request.user)
+            receiver=receiver)
 
-    request.status = True
-    request.save()
+    frequest.status = True
+    frequest.save()
+
+    sender = User.objects.get(username=frequest.sender.username)
+
+    receiver.friends.add(sender)
+    sender.friends.add(receiver)
+
+
 
     return redirect("main:home")
 
