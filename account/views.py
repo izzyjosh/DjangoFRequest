@@ -3,7 +3,7 @@ from .forms import UserRegistrationForm
 from django.contrib.auth.models import auth
 from django.contrib import messages
 
-def signin(request):
+'''def signin(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -19,7 +19,7 @@ def signin(request):
             return redirect("account:signin")
 
     return render(request,"signin.html")
-
+'''
 
 def signup(request):
     if request.method == "POST":
