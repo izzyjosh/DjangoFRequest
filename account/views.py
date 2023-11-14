@@ -32,6 +32,7 @@ def signup(request):
 
     return render(request,"signup.html",{"form":form})
 
-def logout(request):
+"""def logout(request):
     auth.logout(request)
-    return redirect("account:signin")
+    return redirect("account:login")
+    """
