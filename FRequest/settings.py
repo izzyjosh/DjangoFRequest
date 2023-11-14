@@ -139,3 +139,12 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "joshuajosephizzyjosh@gmail.com"
+
+#cache
+CACHES = {
+        "default":{
+            "BACKEND":"django.core.cache.backends.db.DatabaseCache",
+            "LOCATION":"mydb"
+            }
+        }
+

@@ -9,10 +9,15 @@ User=get_user_model()
 def home(request):
     suggestions = User.objects.all()
     friends = User.objects.get(username=request.user.username).friends.all()
+    frequests = Frequest.objects.filter(sender=request.user)
+    frequestusername = []
+    for frequest in frequests:
+        frequestusername.append(frequest.receiver.username)
 
     context = {
             "suggestions":suggestions,
             "friends":friends,
+            "frequestusername":frequestusername,
             }
 
     return render(request,"home.html",context)
@@ -39,6 +44,20 @@ def frequest(request,user_id):
         return redirect("main:home")
 
 @login_required
+def added(request,user_id):
+    sender = request.user
+    receiver = get_object_or_404(User,pk=user_id)
+
+    check = Frequest.objects.filter(
+            sender = sender,
+            receiver = receiver)
+
+    if check.exists():
+        check.delete()
+        return redirect("main:home")
+
+
+@login_required
 def acceptrequest(request,request_id):
     receiver = request.user
     frequest = get_object_or_404(
@@ -54,6 +73,8 @@ def acceptrequest(request,request_id):
     receiver.friends.add(sender)
     sender.friends.add(receiver)
 
+    frequest.delete()
+
 
 
     return redirect("main:home")
@@ -63,7 +84,7 @@ def rejectrequest(request,request_id):
     request = get_object_or_404(
             Frequest,
             pk=request_id,
-            reciever=request.user)
+            receiver=request.user)
 
     request.delete()
     return redirect("main:home")

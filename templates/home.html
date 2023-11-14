@@ -75,19 +75,19 @@
     <br>
     <hr>
     <main>
-	    {% for suggestion in suggestions%}
-	    {% if suggestion not in friends%}
-        <div class="suggestion" id="added">
-		<h4>{{suggestion.username}}</h4>
-		<a href="{% url 'main:request' suggestion.pk%}"><button onclick="remove()" >add friend</button></a>
-        </div>
+	{% for suggestion in suggestions%}
+	{% if suggestion not in friends%}
+            <div class="suggestion" id="added">
+	    	<h4>{{suggestion.username}}</h4>
+	    	<a href="{% url 'main:request' suggestion.pk%}"><button>add friend</button></a>
+            </div>
+	{% elif suggestion.username in frequestusername%}
+	    <div class="suggestion" id="added">
+            	<h4>{{suggestion.username}}</h4>
+                <a href="{% url 'main:added' suggestion.pk%}"><button>cancel request</button></a>
+	    </div>
 	{%endif%}
 	{% endfor %}
     </main>
-    <script>
-	    function remove() {
-		    document.getElementById("added").remove()
-	    }
-    </script>
 </body>
 </html>
