@@ -26,7 +26,7 @@ def signup(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("account:signin")
+            return redirect("account:login")
     else:
         form = UserRegistrationForm()
 
