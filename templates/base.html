@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block title%} {%endblock%}</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 20px 20px 20px;
+    }
+    .nav-links button {
+      padding: 5px 20px;
+      border: none;
+      background: red;
+      color: white;
+      font-weight: 600;
+    }
+    .f-con {
+      display: flex;
+      text-align: center;
+      justify-content: space-between;
+      margin: 5px 10px 10px 10px;
+    }
+    .f-con h3 {
+      box-shadow: hsl(0,0%,70%) 0 0 10px;
+      padding: 10px;
+      font-size: 10px;
+      border: none;
+      border-radius: 50px;
+    }
+    .suggest {
+      box-shadow: hsl(0,0%,70%) 0 0 10px;
+      margin: 20px 10px;
+      height: 100px;
+      padding: 10px;
+    }
+    .suggest img {
+      width: 80px;
+      float: left;
+      border-radius: 100%;
+      margin-right: 20px;
+    }
+    .suggest h4 {
+      font-weight: 700;
+      margin: 5px 10px 10px 0;
+    }
+    .suggest button {
+      padding: 8px 20px;
+      color: white;
+      background: blue;
+      font-weight: 400;
+      border: none;
+      border-radius: 10px;
+    }
+    a {
+      text-decoration: none;
+    }
+    
+  </style>
+</head>
+<body>
+    {%block content%}
+
+    {%endblock%}
+</body>
+</html>

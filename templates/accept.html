@@ -1,92 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=width="", initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>home page</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .nav-links {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5em 1em;
-            color: black;
-        }
-        .nav-links a {
-            text-decoration: none;
-            font-size: 1.3em;
-            color: red;
-            background: yellow;
-            border-radius: 50px;
-            padding:  10px 20px;
-        }
-        .main {
-            justify-content: space-between;
-            background:white;
-            border: blue;
-            padding: 2em 1em;
-            font-size: 15px;
-        }
-        .main h3 {
-            background: #D0D1CD;
-            float: left;
-            margin: 0 10px 0 2px;
-            border-radius: 50px;
-            padding: 10px 10px;
-        }
-        .suggestion {
-            box-shadow: hsl(0,0%,70%) 0 0 10px;
-            border-radius: 10px;
-            margin: 10px 20px;
-            padding: 20px;
-        }
-        .suggestion h4 {
-            margin-left: 20px;
-        }
-        .suggestion a {
-            margin: 10px 20px;
-            
-        }
-        button {
-            background: blue;
-            padding: 10px;
-            border: none;
-    
-        }
-        .request {
-            display: flex;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="nav-links">
-		<h2>welcome {{request.user}}</h2>
-		<a href="{% url 'account:logout'%}">logout</a>
-        </nav>
-        <div class="main">
-		<h3><a href="{% url 'main:home'%}">suggestion</a></h3>
-		<h3><a href="{% url 'main:allrequest' %}">friend request</a></h3>
-        </div>
-    </header>
-    <br>
-    <hr>
-    <main>
-	    {% for friendrequest in friendrequests %}
-        <div class="suggestion">
-		<h4>{{friendrequest.sender.username}}</h4>
-            <div class="request">
-		    <a href="{% url 'main:accept' friendrequest.pk%}"><button>accept</button></a>
-		    <a href="{% url 'main:reject' friendrequest.pk %}"><button style="background:red">delete</button></a>
-            </div>
-        </div>
-	{%endfor%}
-    </main>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %} Request Page {% endblock %}
+
+{% block content %}
+  <header>
+    <nav class="nav-links">
+	    <h3>Welcome {{request.user.username}}</h2>
+	    <a href="{% url 'account:logout' %}"><button>logout</button></a>
+    </nav>
+    <div class="f-con">
+      <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>               <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>      <a href="{% url 'main:friendslist'%}"><h3>firends (100)</h3></a>
+    </div>
+  </header>
+  <hr>
+  <main>
+    {% for friendrequest in friendrequests %}
+    <div class="suggest">
+      <img src="./good.webp" alt="user image">
+      <h4>{{ friendrequest.sender.get_full_name}}</h4>
+      <a href="{% url 'main:accept' friendrequest.pk %}"><button>accept</button>
+	      <a href="{% url 'main:reject' friendrequest.pk %}"><button style="background:red">reject</button></a>
+    </div>
+    {% endfor %}
+   
+  </main>
+{% endblock %}
