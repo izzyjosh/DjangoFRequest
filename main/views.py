@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import get_user_model
-from .models import Frequest
+from .models import Frequest,Notification
 from django.contrib.auth.decorators import login_required
 
 User=get_user_model()
@@ -21,6 +21,13 @@ def home(request):
             }
 
     return render(request,"home.html",context)
+
+
+#get notifications
+def notifications(request):
+    notifications = Notification.objects.filter(owner=request.user)
+
+    return render(request,"notification.html",{"notifications":notifications})
 
 
 def allrequest(request):

@@ -14,5 +14,6 @@ urlpatterns = [
         path("delete/<uuid:request_id>/",views.rejectrequest,name="reject"),
         path("request/",views.allrequest,name="allrequest"),
         path("friendslist/",views.friendslist,name="friendslist"),
+        path("notifications/",views.notifications,name="notifications"),
         ] + static(settings.MEDIA_URL,
                    document_root=settings.MEDIA_ROOT)

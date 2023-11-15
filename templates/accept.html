@@ -9,6 +9,7 @@
     </nav>
     <div class="f-con">
       <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>               <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>      <a href="{% url 'main:friendslist'%}"><h3>firends (100)</h3></a>
+      <a href="{% url 'main:notifications'%}"><h3>notifications</h3></a>
     </div>
   </header>
   <hr>
@@ -16,7 +17,7 @@
     {% for friendrequest in friendrequests %}
     <div class="suggest">
       <img src="{{ friendrequest.receiver.image.images.url }}" alt="user image">
-      <h4>{{ friendrequest.sender.get_full_name}}</h4>
+      <h4>{{ friendrequest.sender.username}}</h4>
       <a href="{% url 'main:accept' friendrequest.pk %}"><button>accept</button>
       <a href="{% url 'main:reject' friendrequest.pk %}"><button style="background:red">reject</button></a>
     </div>
