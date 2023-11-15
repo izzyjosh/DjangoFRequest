@@ -22,3 +22,11 @@ class Frequest(models.Model):
 
     def __str__(self):
         return f"form {self.sender.username} to {self.receiver.username}"
+
+
+class Image(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    images = models.ImageField(upload_to="user_image")
+
+    def __str__(self):
+        return self.user.username

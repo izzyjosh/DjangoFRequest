@@ -18,7 +18,7 @@
   <main>
    {% for friend in friends %}
     <div class="suggest">
-      <img src="./good.webp" alt="user image">
+	    <img src="{{ friend.image.images.url }}" alt="user image">
       <h4>{{friend.get_username}}</h4>
       <p>{{friend.get_contact}}</p>
     </div>

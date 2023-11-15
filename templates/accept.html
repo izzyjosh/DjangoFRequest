@@ -15,10 +15,10 @@
   <main>
     {% for friendrequest in friendrequests %}
     <div class="suggest">
-      <img src="./good.webp" alt="user image">
+      <img src="{{ friendrequest.receiver.image.images.url }}" alt="user image">
       <h4>{{ friendrequest.sender.get_full_name}}</h4>
       <a href="{% url 'main:accept' friendrequest.pk %}"><button>accept</button>
-	      <a href="{% url 'main:reject' friendrequest.pk %}"><button style="background:red">reject</button></a>
+      <a href="{% url 'main:reject' friendrequest.pk %}"><button style="background:red">reject</button></a>
     </div>
     {% endfor %}
    
