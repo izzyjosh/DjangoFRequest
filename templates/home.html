@@ -64,7 +64,7 @@
 <body>
     <header>
         <nav class="nav-links">
-            <h2>welcome Joshua</h2>
+		<h2>welcome {{request.user.username}}</h2>
 	    <a href="{% url 'account:logout'%}">logout</a>
         </nav>
         <div class="main">

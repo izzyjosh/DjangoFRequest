@@ -7,7 +7,7 @@ User=get_user_model()
 
 @login_required
 def home(request):
-    suggestions = User.objects.all()
+    suggestions = User.objects.all().exclude(username=request.user.username)
     friends = User.objects.get(username=request.user.username).friends.all()
     frequests = Frequest.objects.filter(sender=request.user)
     frequestusername = []
