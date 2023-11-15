@@ -27,6 +27,10 @@ def allrequest(request):
     friendrequests = Frequest.objects.filter(receiver=request.user)
     return render(request,"accept.html",{"friendrequests":friendrequests})
 
+def friendslist(request):
+    friends = User.objects.get(username=request.user).friends.all()
+    return render(request,"friendslist.html",{"friends":friends})
+
 
 @login_required
 def frequest(request,user_id):

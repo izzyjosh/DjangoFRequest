@@ -70,22 +70,23 @@
         <div class="main">
 		<h3><a href="{% url 'main:home' %}">suggestion</a></h3>
 		<h3><a href="{% url 'main:allrequest' %}">friend request</a></h3>
+		<h3><a href="{% url 'main:friendslist' %}">All Friends</a></h3>
         </div>
     </header>
     <br>
     <hr>
     <main>
 	{% for suggestion in suggestions%}
-	{% if suggestion not in friends%}
+	{% if suggestion.username in frequestusername%}
+            <div class="suggestion" id="added">
+                <h4>{{suggestion.username}}</h4>
+                <a href="{% url 'main:added' suggestion.pk%}"><button>cancel request</button></a>
+            </div>
+	{% elif suggestion not in friends%}
             <div class="suggestion" id="added">
 	    	<h4>{{suggestion.username}}</h4>
 	    	<a href="{% url 'main:request' suggestion.pk%}"><button>add friend</button></a>
             </div>
-	{% elif suggestion.username in frequestusername%}
-	    <div class="suggestion" id="added">
-            	<h4>{{suggestion.username}}</h4>
-                <a href="{% url 'main:added' suggestion.pk%}"><button>cancel request</button></a>
-	    </div>
 	{%endif%}
 	{% endfor %}
     </main>
