@@ -26,17 +26,23 @@ def home(request):
 #get notifications
 def notifications(request):
     notifications = Notification.objects.filter(owner=request.user)
+    friends = User.objects.get(username=request.user.username).friends.all()
 
-    return render(request,"notification.html",{"notifications":notifications})
+    return render(request,"notification.html",{"notifications":notifications,"friends":friends})
 
 
 def allrequest(request):
     friendrequests = Frequest.objects.filter(receiver=request.user)
-    return render(request,"accept.html",{"friendrequests":friendrequests})
+    friends = User.objects.get(username=request.user.username).friends.all()
+    return render(request,"accept.html",{"friendrequests":friendrequests,"friends":friends})
+
 
 def friendslist(request):
     friends = User.objects.get(username=request.user).friends.all()
-    return render(request,"friendslist.html",{"friends":friends})
+    friendsnumber = User.objects.get(username=request.user.username).friends.all()
+
+    return render(request,"friendslist.html",{"friends":friends,"friendsnumber":friendsnumber})
+
 
 
 @login_required

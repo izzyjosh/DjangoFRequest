@@ -10,16 +10,18 @@
       <a href="{% url 'account:logout' %}"><button>logout</button></a>
     </nav>
     <div class="f-con">
-      <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>               <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>      <a href="{% url 'main:friendslist'%}"><h3>firends (100)</h3></a>      <a href="{% url 'main:notifications'%}"><h3>notifications</h3></a>
+	    <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>               <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>      <a href="{% url 'main:friendslist'%}"><h3>firends({{friends.count}})</h3></a>
+	    <a href="{% url 'main:notifications'%}"><h3>notifications</h3></a>
     </div>
   </header>
   <hr>
   <main>
     {% for notification in notifications %}
     <div class="suggest">
-	    <img src="{{ notification.owner.image.images.url }}" alt="user image">
+      <img src="{{ notification.owner.image.images.url }}" alt="user image">
       <h4>{{ notification.message }}</h4>
-      <p>{{ notification.date }}</p>
+      <br>
+      <p>{{ notification.date | date:"D d M y g : i" }}</p>
     </div>
     {% endfor %}
   </main>

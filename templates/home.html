@@ -11,7 +11,7 @@
     <div class="f-con">
       <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>
       <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>
-      <a href="{% url 'main:friendslist'%}"><h3>firends (100)</h3></a>
+      <a href="{% url 'main:friendslist'%}"><h3>firends({{friends.count}})</h3></a>
       <a href="{% url 'main:notifications'%}"><h3>notifications</h3></a>
     </div>
   </header>
@@ -25,11 +25,12 @@
 	  <a href="{%url 'main:added' suggest.pk %}"><button>cancel request</button></a>
 	</div>
 
-      {% elif suggest not in friends %}
+      {% elif suggest not in friends%}
         <div class="suggest">
 		<img src="{{ suggest.image.images.url }}" alt="user image">
 	  <h4>{{suggest.get_username}}</h4>
 	  <a href="{% url 'main:request' suggest.pk %}"><button>add friend</button></a>
+      
         </div>
       {% endif %}
       {%endfor%}
