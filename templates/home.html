@@ -1,39 +1,44 @@
-{% extends "base.html" %}
-
-{% block title%} Home Page {% endblock %}
-
+{% extends "base.html" %} 
+{% block title%} Home Page {% endblock %} 
 {% block content %}
-  <header>
-    <nav class="nav-links">
-      <h3>Welcome {{request.user.get_full_name}}</h2>
-      <a href="{% url 'account:logout' %}"><button>logout</button></a>
-    </nav>
-    <div class="f-con">
-      <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>
-      <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>
-      <a href="{% url 'main:friendslist'%}"><h3>firends({{friends.count}})</h3></a>
-      <a href="{% url 'main:notifications'%}"><h3>notifications</h3></a>
-    </div>
-  </header>
-  <hr>
-  <main>
-    {%for suggest in suggestions%}
-      {% if suggest.username in frequestusername %}
-        <div class="suggest">
-	  <img src="{{ suggest.image.images.url }}" alt="user image">
-	  <h4>{{suggest.get_username}}</h4>
-	  <a href="{%url 'main:added' suggest.pk %}"><button>cancel request</button></a>
-	</div>
 
-      {% elif suggest not in friends%}
-        <div class="suggest">
-		<img src="{{ suggest.image.images.url }}" alt="user image">
-	  <h4>{{suggest.get_username}}</h4>
-	  <a href="{% url 'main:request' suggest.pk %}"><button>add friend</button></a>
-      
-        </div>
-      {% endif %}
-      {%endfor%}
-  </main>
+<header>
+  <nav class="nav-links">
+    <h3>Welcome {{request.user.get_full_name}}</h3>
+    <a href="{% url 'account:logout' %}"><button>logout</button></a>
+  </nav>
+  <div class="f-con">
+    <a href="{% url 'main:home'%}"><h3>suggestions</h3></a>
+    <a href="{% url 'main:allrequest'%}"><h3>friend request</h3></a>
+    <a href="{% url 'main:friendslist'%}"
+      ><h3>firends({{friends.count}})</h3></a
+    >
+    <a href="{% url 'main:notifications'%}"><h3>notifications</h3></a>
+  </div>
+</header>
+<hr />
+<main>
+  {%for suggest in suggestions%} 
+  {% if suggest.username in frequestusername %}
+  <div class="suggest">
+    <img src="{{ suggest.image.images.url }}" alt="user image" />
+    <h4>{{suggest.get_username}}</h4>
+    <a href="{%url 'main:added' suggest.pk %}"
+      ><button>cancel request</button></a
+    >
+  </div>
+
+  {% elif suggest not in friends%}
+  <div class="suggest">
+    <input type="hidden" value="{{suggest.id}}" name="user-id">
+    <img src="{{ suggest.image.images.url }}" alt="user image" />
+    <h4>{{suggest.get_username}}</h4>
+    <a href="{% url 'main:request' suggest.pk %}"
+       ><button id="add" data-id="{{suggest.id}}">add friend</button></a
+    >
+  </div>
+  {% endif %} 
+  {%endfor%}
+</main>
 
 {% endblock %}
