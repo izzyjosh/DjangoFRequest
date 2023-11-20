@@ -24,6 +24,7 @@ from django.contrib import messages
 def signup(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
+        print(form)
         if form.is_valid():
             form.save()
             return redirect("account:login")
